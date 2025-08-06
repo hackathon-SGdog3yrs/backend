@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-@Builder
 public class Location {
 
     @Id

@@ -10,7 +10,6 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-@Builder
 public class User {
 
     @Id
