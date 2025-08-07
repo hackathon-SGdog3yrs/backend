@@ -22,7 +22,7 @@ public class DataInitializer implements CommandLineRunner {
     private final MeetRepository meetRepository;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         // 기존 데이터가 있으면 초기화하지 않음
         if (userRepository.count() > 0) {
             return;

@@ -40,11 +40,11 @@ public class Meet {
     @Column(columnDefinition = "json")
     private String tag;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_u", nullable = false)
     private User hostUser;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_lo", nullable = false)
     private Location meetLocation;
 

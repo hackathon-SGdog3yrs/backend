@@ -34,16 +34,15 @@ public class User {
     @Column(columnDefinition = "json")
     private String keyword;
 
-    @OneToMany (mappedBy = "hostUser")
+    @OneToMany(mappedBy = "hostUser", fetch = FetchType.LAZY)
     private List<Meet> createdMeets;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "USER_JOINED_MEETS",
             joinColumns = @JoinColumn(name = "id_u"),
             inverseJoinColumns = @JoinColumn(name = "id_m")
     )
-
     private List<Meet> joinedMeets;
 
     public enum Gender {
