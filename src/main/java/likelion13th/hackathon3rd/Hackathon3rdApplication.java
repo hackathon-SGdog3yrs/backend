@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Hackathon3rdApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Hackathon3rdApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Hackathon3rdApplication.class, args);
+    }
 
 }

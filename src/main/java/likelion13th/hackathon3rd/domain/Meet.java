@@ -38,7 +38,7 @@ public class Meet {
     @Builder.Default
     private int current = 1;
 
-    @Column(columnDefinition = "json")
+    @Column(columnDefinition = "TEXT")
     private String tag;
 
     @ManyToOne(fetch = FetchType.EAGER)

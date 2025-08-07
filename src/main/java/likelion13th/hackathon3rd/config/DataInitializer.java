@@ -3,6 +3,7 @@ package likelion13th.hackathon3rd.config;
 import likelion13th.hackathon3rd.domain.Location;
 import likelion13th.hackathon3rd.domain.Meet;
 import likelion13th.hackathon3rd.domain.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import likelion13th.hackathon3rd.repository.LocationRepository;
 import likelion13th.hackathon3rd.repository.MeetRepository;
 import likelion13th.hackathon3rd.repository.UserRepository;
@@ -11,6 +12,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -20,6 +22,7 @@ public class DataInitializer implements CommandLineRunner {
     private final UserRepository userRepository;
     private final LocationRepository locationRepository;
     private final MeetRepository meetRepository;
+    private final ObjectMapper objectMapper;
 
     @Override
     public void run(String... args) {
@@ -50,9 +53,17 @@ public class DataInitializer implements CommandLineRunner {
                 .keyword("[\"요리\",\"독서\",\"차\"]")
                 .build();
 
+        User user4 = User.builder()
+                .name("마포구보안관")
+                .gender(User.Gender.M)
+                .age(55)
+                .keyword("[\"산책\",\"야외\",\"건강\"]")
+                .build();
+
         userRepository.save(user1);
         userRepository.save(user2);
         userRepository.save(user3);
+        userRepository.save(user4);
 
         // 장소 데이터 추가
         Location location1 = Location.builder()
@@ -76,9 +87,17 @@ public class DataInitializer implements CommandLineRunner {
                 .advertisement(true)
                 .build();
 
+        Location location4 = Location.builder()
+                .name("마포중앙공원")
+                .address("서울시 마포구 중앙로")
+                .picture("https://example.com/mapo-central.jpg")
+                .advertisement(false)
+                .build();
+
         locationRepository.save(location1);
         locationRepository.save(location2);
         locationRepository.save(location3);
+        locationRepository.save(location4);
 
         // 모임 데이터 추가
         Meet meet1 = Meet.builder()
@@ -88,7 +107,7 @@ public class DataInitializer implements CommandLineRunner {
                 .detail("매주 일요일 아침에 마포 실버공원에서 가볍게 산책합니다. 건강한 하루를 시작해요!")
                 .maximum(10)
                 .current(3)
-                .tag("[\"산책\",\"야외\",\"건강\"]")
+                .tag(convertTagsToJson(List.of("산책", "야외", "건강")))
                 .hostUser(user1)
                 .meetLocation(location1)
                 .build();
@@ -100,7 +119,7 @@ public class DataInitializer implements CommandLineRunner {
                 .detail("보드게임과 카드게임으로 즐거운 시간을 보내요. 초보자도 환영합니다!")
                 .maximum(8)
                 .current(5)
-                .tag("[\"게임\",\"실내\",\"친목\"]")
+                .tag(convertTagsToJson(List.of("게임", "실내", "친목")))
                 .hostUser(user2)
                 .meetLocation(location2)
                 .build();
@@ -112,7 +131,7 @@ public class DataInitializer implements CommandLineRunner {
                 .detail("다양한 차를 마시며 독서와 담소를 나누는 여유로운 모임입니다.")
                 .maximum(6)
                 .current(2)
-                .tag("[\"차\",\"독서\",\"힐링\"]")
+                .tag(convertTagsToJson(List.of("차", "독서", "힐링")))
                 .hostUser(user3)
                 .meetLocation(location3)
                 .build();
@@ -122,6 +141,18 @@ public class DataInitializer implements CommandLineRunner {
         meetRepository.save(meet3);
 
         System.out.println("테스트 데이터 초기화");
-        System.out.println("사용자 3명, 장소 3곳, 모임 3개가 추가되었습니다.");
+        System.out.println("사용자 4명, 장소 4곳, 모임 3개가 추가되었습니다.");
+    }
+
+    // List<String> 태그를 JSON 문자열로 변환
+    private String convertTagsToJson(List<String> tags) {
+        try {
+            if (tags == null || tags.isEmpty()) {
+                return "[]";
+            }
+            return objectMapper.writeValueAsString(tags);
+        } catch (Exception e) {
+            return "[]";
+        }
     }
 }

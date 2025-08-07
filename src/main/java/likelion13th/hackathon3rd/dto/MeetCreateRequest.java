@@ -24,7 +24,7 @@ public class MeetCreateRequest {
     
     private List<String> tag;
     
-    private String locationName;
+    private String locationId;
     
-    private String userName;
+    private String userId;
 }

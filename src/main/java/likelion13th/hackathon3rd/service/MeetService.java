@@ -66,11 +66,11 @@ public class MeetService {
         validateCreateRequest(request);
         
         // 사용자 조회 (이름으로)
-        User hostUser = userRepository.findByName(request.getUserName())
+        User hostUser = userRepository.findByName(request.getUserId())
                 .orElseThrow(() -> new InvalidRequestException("가입되지 않은 계정입니다."));
         
         // 장소 조회 (이름으로)
-        Location location = locationRepository.findByName(request.getLocationName())
+        Location location = locationRepository.findByName(request.getLocationId())
                 .orElseThrow(() -> new InvalidRequestException("존재하지 않는 장소입니다."));
         
         // 태그를 JSON 문자열로 변환
@@ -152,10 +152,10 @@ public class MeetService {
         if (request.getDetail() == null || request.getDetail().trim().isEmpty()) {
             throw new InvalidRequestException("모임 설명은 필수입니다.");
         }
-        if (request.getLocationName() == null || request.getLocationName().trim().isEmpty()) {
+        if (request.getLocationId() == null || request.getLocationId().trim().isEmpty()) {
             throw new InvalidRequestException("장소 이름은 필수입니다.");
         }
-        if (request.getUserName() == null || request.getUserName().trim().isEmpty()) {
+        if (request.getUserId() == null || request.getUserId().trim().isEmpty()) {
             throw new InvalidRequestException("생성자 이름은 필수입니다.");
         }
     }
