@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "MEET")
 @Getter
 @NoArgsConstructor
 @Builder

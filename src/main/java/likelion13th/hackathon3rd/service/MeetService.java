@@ -43,8 +43,7 @@ public class MeetService {
 
     // 모임 상세 정보 조회
     // @param meetId 모임 ID
-    // @param userId 사용자 ID (참여 여부 확인용, 현재는 임시로 1로 설정)
-    public MeetDetailResponse getMeetDetail(Integer meetId, Integer userId) {
+    public MeetDetailResponse getMeetDetail(Integer meetId) {
         // 입력값 검증
         if (meetId == null || meetId <= 0) {
             throw new InvalidRequestException("가입되지 않은 계정입니다.");

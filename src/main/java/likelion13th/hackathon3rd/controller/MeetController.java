@@ -37,9 +37,7 @@ public class MeetController {
     @GetMapping("/{id}")
     public ResponseEntity<MeetDetailResponse> getMeetDetail(@PathVariable Integer id) {
         
-        Integer userId = 1; // 임시 사용자 ID
-        
-        MeetDetailResponse meetDetail = meetService.getMeetDetail(id, userId);
+        MeetDetailResponse meetDetail = meetService.getMeetDetail(id);
         
         return ResponseEntity.ok(meetDetail);
     }
