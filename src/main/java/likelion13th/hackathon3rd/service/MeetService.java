@@ -54,7 +54,7 @@ public class MeetService {
                 .orElseThrow(() -> new MeetNotFoundException("서버에 문제가 발생했습니다. 잠시후 다시 시도해주세요."));
         
         // 사용자의 모임 참여 여부 확인
-        boolean isJoined = checkUserJoinedMeet(meet, userId);
+        boolean isJoined = checkUserJoinedMeet();
         
         return convertToMeetDetailResponse(meet, isJoined);
     }
@@ -134,7 +134,7 @@ public class MeetService {
     }
 
     // 사용자가 해당 모임에 참여했는지 확인
-    private boolean checkUserJoinedMeet(Meet meet, Integer userId) {
+    private boolean checkUserJoinedMeet() {
         // 임시로 true 반환 (API 명세서 예시와 일치)
         return true;
     }
@@ -180,7 +180,7 @@ public class MeetService {
             if (tagJson == null || tagJson.trim().isEmpty()) {
                 return List.of();
             }
-            return objectMapper.readValue(tagJson, new TypeReference<List<String>>() {});
+            return objectMapper.readValue(tagJson, new TypeReference<>() {});
         } catch (Exception e) {
             // JSON 파싱 실패 시 빈 리스트 반환
             return List.of();
