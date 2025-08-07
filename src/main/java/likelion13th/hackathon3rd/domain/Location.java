@@ -29,5 +29,6 @@ public class Location {
     private String picture;
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean advertisement = false;
 }
