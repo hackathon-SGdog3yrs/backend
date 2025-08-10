@@ -1,13 +1,17 @@
 package likelion13th.hackathon3rd.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "LOCATION")
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Location {
 
     @Id
@@ -25,5 +29,6 @@ public class Location {
     private String picture;
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean advertisement = false;
 }

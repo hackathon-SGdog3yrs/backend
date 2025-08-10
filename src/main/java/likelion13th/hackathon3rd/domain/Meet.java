@@ -1,6 +1,7 @@
 package likelion13th.hackathon3rd.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,8 +9,11 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "MEET")
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Meet {
 
     @Id
@@ -31,16 +35,17 @@ public class Meet {
     private int maximum;
 
     @Column(nullable = false)
+    @Builder.Default
     private int current = 1;
 
-    @Column(columnDefinition = "json")
+    @Column(columnDefinition = "TEXT")
     private String tag;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_u", nullable = false)
     private User hostUser;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_lo", nullable = false)
     private Location meetLocation;
 
