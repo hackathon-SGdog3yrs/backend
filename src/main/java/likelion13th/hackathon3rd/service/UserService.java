@@ -42,22 +42,35 @@ public class UserService {
     }
 
     private List<String> readKeywords(String json) {
-        try {
-            if (json == null || json.isBlank()) return new ArrayList<>();
-            return objectMapper.readValue(json, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {});
-        } catch (Exception e) {
-            // 파싱 실패 시 안전하게 새로 시작
-            return new ArrayList<>();
-        }
-    }
+        List<String> out = new ArrayList<>();
+        if (json == null || json.isBlank()) return out;
 
-    private String writeKeywords(List<String> list) {
         try {
-            return objectMapper.writeValueAsString(list);
-        } catch (Exception e) {
-            // 문제가 생기면 비워서라도 저장 실패 방지
-            return "[]";
+            // 1) JSON 배열
+            return objectMapper.readValue(json, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {});
+        } catch (Exception ignore) { }
+
+        try {
+            // 2) 단일 JSON 문자열
+            String one = objectMapper.readValue(json, String.class);
+            if (one != null && !one.isBlank()) {
+                // 2-1) 이 문자열이 JSON 배열 형태라면 다시 파싱
+                if (one.trim().startsWith("[") && one.trim().endsWith("]")) {
+                    try {
+                        return objectMapper.readValue(one, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {});
+                    } catch (Exception innerIgnore) { }
+                }
+                out.add(one.trim());
+            }
+            return out;
+        } catch (Exception ignore) { }
+
+        // 3) 콤마 문자열
+        for (String s : json.split(",")) {
+            String t = s == null ? "" : s.trim();
+            if (!t.isBlank()) out.add(t);
         }
+        return out;
     }
 
     private String normalize(String k) {
@@ -68,6 +81,13 @@ public class UserService {
         if (s.length() > 40) s = s.substring(0, 40);
         return s;
     }
-
+    private String writeKeywords(List<String> list) {
+        try {
+            return objectMapper.writeValueAsString(list);
+        } catch (Exception e) {
+            // 문제가 생기면 비워서라도 저장 실패 방지
+            return "[]";
+        }
+    }
 
 }
