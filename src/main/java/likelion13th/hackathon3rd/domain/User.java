@@ -1,10 +1,7 @@
 package likelion13th.hackathon3rd.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -47,5 +44,9 @@ public class User {
 
     public enum Gender {
         M, F
+    }
+
+    public void updateKeywordJson(String json) {
+        this.keyword = json;
     }
 }
