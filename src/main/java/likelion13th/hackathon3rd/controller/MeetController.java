@@ -23,7 +23,7 @@ public class MeetController {
     // @param sort 정렬 기준 (현재는 currentDesc만 지원)
     // @return 모임 리스트
     @GetMapping("/list")
-    public ResponseEntity<List<MeetListResponse>> getMeetList() {
+    public ResponseEntity<List<MeetListResponse>> getMeetList(@RequestParam(defaultValue = "currentDesc") String sort) {
         
         // 현재는 currentDesc 정렬만 지원
         List<MeetListResponse> meetList = meetService.getAllAvailableMeets();
