@@ -135,7 +135,7 @@ public class MeetService {
                 .tag(tags)
                 .intro(meet.getIntro())
                 .detail(meet.getDetail())
-                .isJoined(isJoined)
+                .isjoined(isJoined)
                 .build();
     }
 
@@ -183,10 +183,10 @@ public class MeetService {
         // JSON 형태의 태그 문자열을 List<String>으로 변환
     private List<String> parseTagsFromJson(String tagJson) {
         try {
-            if (tagJson == null || tagJson.trim().isEmpty()) {
+            if (tagJson == null || tagJson.trim().isEmpty() || "[]".equals(tagJson.trim())) {
                 return List.of();
             }
-            return objectMapper.readValue(tagJson, new TypeReference<>() {});
+            return objectMapper.readValue(tagJson, new TypeReference<List<String>>() {});
         } catch (Exception e) {
             // JSON 파싱 실패 시 빈 리스트 반환
             return List.of();
