@@ -31,5 +31,5 @@ public class MeetDetailResponse {
     private List<String> tag;
     private String intro;
     private String detail;
-    private Boolean isJoined;
+    private Boolean isjoined;
 }
