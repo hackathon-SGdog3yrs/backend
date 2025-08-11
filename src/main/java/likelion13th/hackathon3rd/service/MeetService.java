@@ -79,7 +79,6 @@ public class MeetService {
         // Meet 엔티티 생성
         Meet meet = Meet.builder()
                 .name(request.getName())
-                .email(hostUser.getName() + "@temp.com") // 임시 이메일
                 .dateTime(request.getDatetime())
                 .detail(request.getDetail())
                 .maximum(request.getMaximum())
@@ -98,6 +97,7 @@ public class MeetService {
     // Meet 엔티티를 MeetListResponse DTO로 변환
     private MeetListResponse convertToMeetListResponse(Meet meet) {
         List<String> tags = parseTagsFromJson(meet.getTag());
+        List<String> locationPictures = parseTagsFromJson(meet.getMeetLocation().getPicture());
         
         return MeetListResponse.builder()
                 .id(meet.getId())
@@ -106,9 +106,12 @@ public class MeetService {
                 .current(meet.getCurrent())
                 .maximum(meet.getMaximum())
                 .hostName(meet.getHostUser().getName())
+                .hostAge(meet.getHostUser().getAge())
+                .hostGender(meet.getHostUser().getGender().toString())
                 .locationName(meet.getMeetLocation().getName())
-                .locationPicture(meet.getMeetLocation().getPicture())
+                .locationPicture(locationPictures)
                 .tag(tags)
+                .intro(meet.getIntro())
                 .detail(meet.getDetail())
                 .build();
     }
@@ -116,6 +119,7 @@ public class MeetService {
     // Meet 엔티티를 MeetDetailResponse DTO로 변환
     private MeetDetailResponse convertToMeetDetailResponse(Meet meet, boolean isJoined) {
         List<String> tags = parseTagsFromJson(meet.getTag());
+        List<String> locationPictures = parseTagsFromJson(meet.getMeetLocation().getPicture());
         
         return MeetDetailResponse.builder()
                 .id(meet.getId())
@@ -124,9 +128,12 @@ public class MeetService {
                 .current(meet.getCurrent())
                 .maximum(meet.getMaximum())
                 .hostName(meet.getHostUser().getName())
+                .hostAge(meet.getHostUser().getAge())
+                .hostGender(meet.getHostUser().getGender().toString())
                 .locationName(meet.getMeetLocation().getName())
-                .locationPicture(meet.getMeetLocation().getPicture())
+                .locationPicture(locationPictures)
                 .tag(tags)
+                .intro(meet.getIntro())
                 .detail(meet.getDetail())
                 .isJoined(isJoined)
                 .build();

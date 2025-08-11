@@ -21,17 +21,17 @@ public class User {
     @Column(name = "id_u", unique = true, nullable = false)
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "gender", nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Column(nullable = false)
+    @Column(name = "age", nullable = false)
     private Integer age;
 
-    @Column(columnDefinition = "json")
+    @Column(name = "keyword", columnDefinition = "TEXT")
     private String keyword;
 
     @OneToMany(mappedBy = "hostUser", fetch = FetchType.LAZY)

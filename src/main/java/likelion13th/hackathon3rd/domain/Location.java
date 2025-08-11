@@ -19,16 +19,16 @@ public class Location {
     @Column(name = "id_lo", nullable = false)
     private int id;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(nullable = false)
+    @Column(name = "picture", columnDefinition = "TEXT")
     private String picture;
 
-    @Column(nullable = false)
+    @Column(name = "advertisement", nullable = false)
     @Builder.Default
     private Boolean advertisement = false;
 }

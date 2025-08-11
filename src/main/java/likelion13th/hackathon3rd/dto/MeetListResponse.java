@@ -24,8 +24,11 @@ public class MeetListResponse {
     private Integer current;
     private Integer maximum;
     private String hostName;
+    private Integer hostAge;
+    private String hostGender;
     private String locationName;
-    private String locationPicture;
+    private List<String> locationPicture;
     private List<String> tag;
+    private String intro;
     private String detail;
 }

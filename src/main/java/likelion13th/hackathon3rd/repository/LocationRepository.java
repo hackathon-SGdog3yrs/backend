@@ -7,8 +7,6 @@ import java.util.Optional;
 
 public interface LocationRepository extends JpaRepository<Location, Integer> {
     
-    /**
-     * 장소 이름으로 조회
-     */
+    // 장소 이름으로 조회
     Optional<Location> findByName(String name);
 }

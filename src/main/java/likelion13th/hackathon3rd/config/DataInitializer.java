@@ -69,28 +69,28 @@ public class DataInitializer implements CommandLineRunner {
         Location location1 = Location.builder()
                 .name("마포 실버공원")
                 .address("서울시 마포구 상수동")
-                .picture("https://example.com/mapo-park.jpg")
+                .picture(convertTagsToJson(List.of("https://your-bucket.s3.amazonaws.com/location1_1.jpg", "https://your-bucket.s3.amazonaws.com/location1_2.jpg")))
                 .advertisement(false)
                 .build();
 
         Location location2 = Location.builder()
                 .name("마포 실버센터")
                 .address("서울시 마포구 합정동")
-                .picture("https://example.com/mapo-center.jpg")
+                .picture(convertTagsToJson(List.of("https://your-bucket.s3.amazonaws.com/location2_1.jpg")))
                 .advertisement(false)
                 .build();
 
         Location location3 = Location.builder()
                 .name("홍대 커피숍")
                 .address("서울시 마포구 홍익로")
-                .picture("https://example.com/hongdae-cafe.jpg")
+                .picture(convertTagsToJson(List.of("https://your-bucket.s3.amazonaws.com/location3_1.jpg")))
                 .advertisement(true)
                 .build();
 
         Location location4 = Location.builder()
                 .name("마포중앙공원")
                 .address("서울시 마포구 중앙로")
-                .picture("https://example.com/mapo-central.jpg")
+                .picture(convertTagsToJson(List.of("https://your-bucket.s3.amazonaws.com/location4_1.jpg")))
                 .advertisement(false)
                 .build();
 
@@ -101,12 +101,12 @@ public class DataInitializer implements CommandLineRunner {
 
         // 모임 데이터 추가
         Meet meet1 = Meet.builder()
-                .name("실버 산책 모임")
-                .email("kimeunhye@temp.com")
+                .name("실버산책 모임")
+                .intro("마포구 어르신들과 함께하는 주말 아침 산책 모임")
                 .dateTime(LocalDateTime.of(2025, 8, 10, 9, 0))
-                .detail("매주 일요일 아침에 마포 실버공원에서 가볍게 산책합니다. 건강한 하루를 시작해요!")
+                .detail("매주 일요일 오전 9시에 만나 함께 산책합니다. 간단한 스트레칭도 함께 해요.")
                 .maximum(10)
-                .current(3)
+                .current(5)
                 .tag(convertTagsToJson(List.of("산책", "야외", "건강")))
                 .hostUser(user1)
                 .meetLocation(location1)
@@ -114,7 +114,7 @@ public class DataInitializer implements CommandLineRunner {
 
         Meet meet2 = Meet.builder()
                 .name("실버 게임 클럽")
-                .email("leejungho@temp.com")
+                .intro("보드게임과 카드게임으로 즐거운 시간을 보내요")
                 .dateTime(LocalDateTime.of(2025, 8, 12, 14, 0))
                 .detail("보드게임과 카드게임으로 즐거운 시간을 보내요. 초보자도 환영합니다!")
                 .maximum(8)
@@ -126,7 +126,7 @@ public class DataInitializer implements CommandLineRunner {
 
         Meet meet3 = Meet.builder()
                 .name("홍대 차 모임")
-                .email("parkmiyoung@temp.com")
+                .intro("다양한 차를 마시며 독서와 담소를 나누는 여유로운 모임")
                 .dateTime(LocalDateTime.of(2025, 8, 15, 15, 30))
                 .detail("다양한 차를 마시며 독서와 담소를 나누는 여유로운 모임입니다.")
                 .maximum(6)
