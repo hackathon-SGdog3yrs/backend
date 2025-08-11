@@ -20,4 +20,13 @@ public interface MeetRepository extends JpaRepository<Meet, Integer> {
            "JOIN FETCH m.meetLocation " +
            "WHERE m.id = :meetId")
     Optional<Meet> findByIdWithDetails(@Param("meetId") Integer meetId);
+    
+    // 모임 이름으로 검색 (대소문자 무시)
+    List<Meet> findByNameContainingIgnoreCase(String name);
+    
+    // 모임 설명으로 검색 (대소문자 무시)
+    List<Meet> findByDetailContainingIgnoreCase(String detail);
+    
+    // 모임 태그로 검색 (대소문자 무시)
+    List<Meet> findByTagContainingIgnoreCase(String tag);
 }

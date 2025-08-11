@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/meet")
@@ -51,5 +52,26 @@ public class MeetController {
         MeetCreateResponse response = meetService.createMeet(request);
         
         return ResponseEntity.status(201).body(response);
+    }
+
+    // 모임 검색
+    // @param q 검색어
+    // @param field 검색 필드 (name|detail|tag)
+    // @return 검색 결과 모임 리스트
+    @GetMapping("/search")
+    public ResponseEntity<?> searchMeets(@RequestParam String q, @RequestParam String field) {
+        
+        List<MeetListResponse> searchResults = meetService.searchMeets(q, field);
+        
+        if (searchResults.isEmpty()) {
+            return ResponseEntity.ok(Map.of(
+                "success", true,
+                "code", "S200",
+                "message", "검색 결과가 없습니다",
+                "data", List.of()
+            ));
+        }
+        
+        return ResponseEntity.ok(searchResults);
     }
 }

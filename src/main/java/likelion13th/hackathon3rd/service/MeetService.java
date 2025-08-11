@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -184,7 +185,30 @@ public class MeetService {
         }
     }
 
-        // JSON 형태의 태그 문자열을 List<String>으로 변환
+        // 모임 검색
+    public List<MeetListResponse> searchMeets(String query, String field) {
+        List<Meet> searchResults = new ArrayList<>();
+        
+        switch (field.toLowerCase()) {
+            case "name":
+                searchResults = meetRepository.findByNameContainingIgnoreCase(query);
+                break;
+            case "detail":
+                searchResults = meetRepository.findByDetailContainingIgnoreCase(query);
+                break;
+            case "tag":
+                searchResults = meetRepository.findByTagContainingIgnoreCase(query);
+                break;
+            default:
+                throw new InvalidRequestException("지원하지 않는 검색 필드입니다. (name, detail, tag 중 선택)");
+        }
+        
+        return searchResults.stream()
+                .map(this::convertToMeetListResponse)
+                .collect(Collectors.toList());
+    }
+
+    // JSON 형태의 태그 문자열을 List<String>으로 변환
     private List<String> parseTagsFromJson(String tagJson) {
         try {
             if (tagJson == null || tagJson.trim().isEmpty() || "[]".equals(tagJson.trim())) {
