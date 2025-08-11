@@ -65,12 +65,12 @@ public class MeetService {
         // 입력값 검증
         validateCreateRequest(request);
         
-        // 사용자 조회 (이름으로)
-        User hostUser = userRepository.findByName(request.getUserId())
+        // 사용자 조회 (ID로)
+        User hostUser = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new InvalidRequestException("가입되지 않은 계정입니다."));
         
-        // 장소 조회 (이름으로)
-        Location location = locationRepository.findByName(request.getLocationId())
+        // 장소 조회 (ID로)
+        Location location = locationRepository.findById(request.getLocationId())
                 .orElseThrow(() -> new InvalidRequestException("존재하지 않는 장소입니다."));
         
         // 태그를 JSON 문자열로 변환
@@ -79,6 +79,7 @@ public class MeetService {
         // Meet 엔티티 생성
         Meet meet = Meet.builder()
                 .name(request.getName())
+                .intro(request.getIntro())
                 .dateTime(request.getDatetime())
                 .detail(request.getDetail())
                 .maximum(request.getMaximum())
@@ -159,11 +160,14 @@ public class MeetService {
         if (request.getDetail() == null || request.getDetail().trim().isEmpty()) {
             throw new InvalidRequestException("모임 설명은 필수입니다.");
         }
-        if (request.getLocationId() == null || request.getLocationId().trim().isEmpty()) {
-            throw new InvalidRequestException("장소 이름은 필수입니다.");
+        if (request.getLocationId() == null) {
+            throw new InvalidRequestException("장소 ID는 필수입니다.");
         }
-        if (request.getUserId() == null || request.getUserId().trim().isEmpty()) {
-            throw new InvalidRequestException("생성자 이름은 필수입니다.");
+        if (request.getUserId() == null) {
+            throw new InvalidRequestException("사용자 ID는 필수입니다.");
+        }
+        if (request.getIntro() == null || request.getIntro().trim().isEmpty()) {
+            throw new InvalidRequestException("모임 한줄소개는 필수입니다.");
         }
     }
 
