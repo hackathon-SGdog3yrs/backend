@@ -3,6 +3,8 @@ package likelion13th.hackathon3rd.controller;
 import likelion13th.hackathon3rd.dto.MeetCreateRequest;
 import likelion13th.hackathon3rd.dto.MeetCreateResponse;
 import likelion13th.hackathon3rd.dto.MeetDetailResponse;
+import likelion13th.hackathon3rd.dto.MeetJoinRequest;
+import likelion13th.hackathon3rd.dto.MeetJoinResponse;
 import likelion13th.hackathon3rd.dto.MeetListResponse;
 import likelion13th.hackathon3rd.service.MeetService;
 import lombok.RequiredArgsConstructor;
@@ -73,5 +75,16 @@ public class MeetController {
         }
         
         return ResponseEntity.ok(searchResults);
+    }
+
+    // 모임 참여하기
+    // @param request 모임 참여 요청 정보
+    // @return 참여 결과
+    @PostMapping("/join")
+    public ResponseEntity<MeetJoinResponse> joinMeet(@RequestBody MeetJoinRequest request) {
+        
+        MeetJoinResponse response = meetService.joinMeet(request);
+        
+        return ResponseEntity.ok(response);
     }
 }

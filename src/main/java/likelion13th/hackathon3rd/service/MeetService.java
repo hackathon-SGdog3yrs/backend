@@ -6,6 +6,8 @@ import likelion13th.hackathon3rd.domain.User;
 import likelion13th.hackathon3rd.dto.MeetCreateRequest;
 import likelion13th.hackathon3rd.dto.MeetCreateResponse;
 import likelion13th.hackathon3rd.dto.MeetDetailResponse;
+import likelion13th.hackathon3rd.dto.MeetJoinRequest;
+import likelion13th.hackathon3rd.dto.MeetJoinResponse;
 import likelion13th.hackathon3rd.dto.MeetListResponse;
 import likelion13th.hackathon3rd.exception.InvalidRequestException;
 import likelion13th.hackathon3rd.exception.MeetNotFoundException;
@@ -42,20 +44,21 @@ public class MeetService {
                 .collect(Collectors.toList());
     }
 
-    // 모임 상세 정보 조회
+        // 모임 상세 정보 조회
     // @param meetId 모임 ID
     public MeetDetailResponse getMeetDetail(Integer meetId) {
         // 입력값 검증
         if (meetId == null || meetId <= 0) {
             throw new InvalidRequestException("가입되지 않은 계정입니다.");
         }
-        
+
         Meet meet = meetRepository.findByIdWithDetails(meetId)
                 .orElseThrow(() -> new MeetNotFoundException("서버에 문제가 발생했습니다. 잠시후 다시 시도해주세요."));
-        
-        // 사용자의 모임 참여 여부 확인
-        boolean isJoined = checkUserJoinedMeet();
-        
+
+        // 사용자의 모임 참여 여부 확인 (임시로 false 반환)
+        // TODO: 실제 사용자 인증과 참여 관계 구현 필요
+        boolean isJoined = false;
+
         return convertToMeetDetailResponse(meet, isJoined);
     }
 
@@ -142,9 +145,19 @@ public class MeetService {
     }
 
     // 사용자가 해당 모임에 참여했는지 확인
-    private boolean checkUserJoinedMeet() {
-        // 임시로 true 반환 (API 명세서 예시와 일치)
-        return true;
+    private boolean checkUserJoinedMeet(Integer userId, Integer meetId) {
+        try {
+            User user = userRepository.findById(userId).orElse(null);
+            Meet meet = meetRepository.findById(meetId).orElse(null);
+            
+            if (user == null || meet == null) {
+                return false;
+            }
+            
+            return user.hasJoinedMeet(meet);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     // 모임 생성 요청 검증
@@ -209,6 +222,52 @@ public class MeetService {
         return searchResults.stream()
                 .map(this::convertToMeetListResponse)
                 .collect(Collectors.toList());
+    }
+
+    // 모임 참여하기
+    // @param request 모임 참여 요청 정보
+    @Transactional
+    public MeetJoinResponse joinMeet(MeetJoinRequest request) {
+        // 입력값 검증
+        validateJoinRequest(request);
+        
+        // 사용자 조회
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new InvalidRequestException("존재하지 않는 사용자입니다."));
+        
+        // 모임 조회
+        Meet meet = meetRepository.findById(request.getMeetId())
+                .orElseThrow(() -> new InvalidRequestException("존재하지 않는 모임입니다."));
+        
+        // 모임 참여 가능 여부 확인
+        if (meet.getCurrent() >= meet.getMaximum()) {
+            return MeetJoinResponse.failure("E409", "모임 최대 인원을 초과했습니다.");
+        }
+        
+        // 이미 참여했는지 확인
+        if (user.hasJoinedMeet(meet)) {
+            return MeetJoinResponse.failure("E409", "이미 참여한 모임입니다.");
+        }
+        
+        // 모임 참여자 수 증가
+        meet.setCurrent(meet.getCurrent() + 1);
+        Meet updatedMeet = meetRepository.save(meet);
+        
+        // 사용자의 참여 모임 목록에 추가
+        user.joinMeet(updatedMeet);
+        userRepository.save(user);
+        
+        return MeetJoinResponse.success(updatedMeet.getId(), user.getId(), updatedMeet.getCurrent());
+    }
+
+    // 모임 참여 요청 검증
+    private void validateJoinRequest(MeetJoinRequest request) {
+        if (request.getUserId() == null) {
+            throw new InvalidRequestException("사용자 ID는 필수입니다.");
+        }
+        if (request.getMeetId() == null) {
+            throw new InvalidRequestException("모임 ID는 필수입니다.");
+        }
     }
 
     // JSON 형태의 태그 문자열을 List<String>으로 변환

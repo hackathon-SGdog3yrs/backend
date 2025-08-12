@@ -51,4 +51,8 @@ public class Meet {
     @JoinColumn(name = "id_lo", nullable = false)
     private Location meetLocation;
 
+    // 현재 참여자 수 설정
+    public void setCurrent(int current) {
+        this.current = current;
+    }
 }

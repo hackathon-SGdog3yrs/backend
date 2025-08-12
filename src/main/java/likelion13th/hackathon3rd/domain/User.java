@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -45,7 +46,22 @@ public class User {
     )
     private List<Meet> joinedMeets;
 
-    public enum Gender {
-        M, F
-    }
-}
+                    public enum Gender {
+                    M, F
+                }
+
+                // 특정 모임에 참여했는지 확인
+                public boolean hasJoinedMeet(Meet meet) {
+                    return joinedMeets != null && joinedMeets.contains(meet);
+                }
+
+                // 모임 참여 추가
+                public void joinMeet(Meet meet) {
+                    if (joinedMeets == null) {
+                        joinedMeets = new ArrayList<>();
+                    }
+                    if (!hasJoinedMeet(meet)) {
+                        joinedMeets.add(meet);
+                    }
+                }
+            }
