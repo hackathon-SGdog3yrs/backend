@@ -5,6 +5,8 @@ import likelion13th.hackathon3rd.dto.MeetCreateResponse;
 import likelion13th.hackathon3rd.dto.MeetDetailResponse;
 import likelion13th.hackathon3rd.dto.MeetJoinRequest;
 import likelion13th.hackathon3rd.dto.MeetJoinResponse;
+import likelion13th.hackathon3rd.dto.MeetLeaveRequest;
+import likelion13th.hackathon3rd.dto.MeetLeaveResponse;
 import likelion13th.hackathon3rd.dto.MeetListResponse;
 import likelion13th.hackathon3rd.service.MeetService;
 import lombok.RequiredArgsConstructor;
@@ -84,6 +86,17 @@ public class MeetController {
     public ResponseEntity<MeetJoinResponse> joinMeet(@RequestBody MeetJoinRequest request) {
         
         MeetJoinResponse response = meetService.joinMeet(request);
+        
+        return ResponseEntity.ok(response);
+    }
+
+    // 모임 나가기
+    // @param request 모임 나가기 요청 정보
+    // @return 나가기 결과
+    @DeleteMapping("/join")
+    public ResponseEntity<MeetLeaveResponse> leaveMeet(@RequestBody MeetLeaveRequest request) {
+        
+        MeetLeaveResponse response = meetService.leaveMeet(request);
         
         return ResponseEntity.ok(response);
     }

@@ -64,4 +64,12 @@ public class User {
                         joinedMeets.add(meet);
                     }
                 }
+
+                // 모임 나가기
+                public boolean leaveMeet(Meet meet) {
+                    if (joinedMeets != null && hasJoinedMeet(meet)) {
+                        return joinedMeets.remove(meet);
+                    }
+                    return false;
+                }
             }

@@ -8,6 +8,8 @@ import likelion13th.hackathon3rd.dto.MeetCreateResponse;
 import likelion13th.hackathon3rd.dto.MeetDetailResponse;
 import likelion13th.hackathon3rd.dto.MeetJoinRequest;
 import likelion13th.hackathon3rd.dto.MeetJoinResponse;
+import likelion13th.hackathon3rd.dto.MeetLeaveRequest;
+import likelion13th.hackathon3rd.dto.MeetLeaveResponse;
 import likelion13th.hackathon3rd.dto.MeetListResponse;
 import likelion13th.hackathon3rd.exception.InvalidRequestException;
 import likelion13th.hackathon3rd.exception.MeetNotFoundException;
@@ -260,8 +262,49 @@ public class MeetService {
         return MeetJoinResponse.success(updatedMeet.getId(), user.getId(), updatedMeet.getCurrent());
     }
 
+    // 모임 나가기
+    // @param request 모임 나가기 요청 정보
+    @Transactional
+    public MeetLeaveResponse leaveMeet(MeetLeaveRequest request) {
+        // 입력값 검증
+        validateLeaveRequest(request);
+        
+        // 사용자 조회
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new InvalidRequestException("존재하지 않는 사용자입니다."));
+        
+        // 모임 조회
+        Meet meet = meetRepository.findById(request.getMeetId())
+                .orElseThrow(() -> new InvalidRequestException("존재하지 않는 모임입니다."));
+        
+        // 참여하지 않은 모임인지 확인
+        if (!user.hasJoinedMeet(meet)) {
+            return MeetLeaveResponse.failure("E409", "참여하지 않은 모임입니다.");
+        }
+        
+        // 모임 참여자 수 감소
+        meet.setCurrent(meet.getCurrent() - 1);
+        Meet updatedMeet = meetRepository.save(meet);
+        
+        // 사용자의 참여 모임 목록에서 제거
+        user.leaveMeet(updatedMeet);
+        userRepository.save(user);
+        
+        return MeetLeaveResponse.success(updatedMeet.getId(), user.getId(), updatedMeet.getCurrent());
+    }
+
     // 모임 참여 요청 검증
     private void validateJoinRequest(MeetJoinRequest request) {
+        if (request.getUserId() == null) {
+            throw new InvalidRequestException("사용자 ID는 필수입니다.");
+        }
+        if (request.getMeetId() == null) {
+            throw new InvalidRequestException("모임 ID는 필수입니다.");
+        }
+    }
+
+    // 모임 나가기 요청 검증
+    private void validateLeaveRequest(MeetLeaveRequest request) {
         if (request.getUserId() == null) {
             throw new InvalidRequestException("사용자 ID는 필수입니다.");
         }
