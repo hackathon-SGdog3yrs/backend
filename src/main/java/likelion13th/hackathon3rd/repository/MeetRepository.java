@@ -22,11 +22,18 @@ public interface MeetRepository extends JpaRepository<Meet, Integer> {
     Optional<Meet> findByIdWithDetails(@Param("meetId") Integer meetId);
     
     // 모임 이름으로 검색 (대소문자 무시)
-    List<Meet> findByNameContainingIgnoreCase(String name);
+    @Query("SELECT m FROM Meet m WHERE LOWER(m.name) LIKE LOWER(CONCAT('%', :name, '%'))")
+    List<Meet> findByNameContainingIgnoreCase(@Param("name") String name);
     
     // 모임 설명으로 검색 (대소문자 무시)
-    List<Meet> findByDetailContainingIgnoreCase(String detail);
+    @Query("SELECT m FROM Meet m WHERE LOWER(m.detail) LIKE LOWER(CONCAT('%', :detail, '%'))")
+    List<Meet> findByDetailContainingIgnoreCase(@Param("detail") String detail);
     
     // 모임 태그로 검색 (대소문자 무시)
-    List<Meet> findByTagContainingIgnoreCase(String tag);
+    @Query("SELECT m FROM Meet m WHERE LOWER(m.tag) LIKE LOWER(CONCAT('%', :tag, '%'))")
+    List<Meet> findByTagContainingIgnoreCase(@Param("tag") String tag);
+    
+    // 모임 한줄소개로 검색 (대소문자 무시)
+    @Query("SELECT m FROM Meet m WHERE LOWER(m.intro) LIKE LOWER(CONCAT('%', :intro, '%'))")
+    List<Meet> findByIntroContainingIgnoreCase(@Param("intro") String intro);
 }
