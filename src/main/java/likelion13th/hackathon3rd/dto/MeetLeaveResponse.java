@@ -31,7 +31,7 @@ public class MeetLeaveResponse {
         return MeetLeaveResponse.builder()
                 .success(true)
                 .code("S200")
-                .message("모임 나가기 완료")
+                .message("모임 참여 취소 완료")
                 .data(Data.builder()
                         .meetId(meetId)
                         .userId(userId)
