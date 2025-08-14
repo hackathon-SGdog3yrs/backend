@@ -102,7 +102,7 @@ public class DataInitializer implements CommandLineRunner {
         // 모임 데이터 추가
         Meet meet1 = Meet.builder()
                 .name("실버 산책 모임")
-                .email("kimeunhye@temp.com")
+           //     .email("kimeunhye@temp.com")
                 .dateTime(LocalDateTime.of(2025, 8, 10, 9, 0))
                 .detail("매주 일요일 아침에 마포 실버공원에서 가볍게 산책합니다. 건강한 하루를 시작해요!")
                 .maximum(10)
@@ -114,7 +114,7 @@ public class DataInitializer implements CommandLineRunner {
 
         Meet meet2 = Meet.builder()
                 .name("실버 게임 클럽")
-                .email("leejungho@temp.com")
+           //     .email("leejungho@temp.com")
                 .dateTime(LocalDateTime.of(2025, 8, 12, 14, 0))
                 .detail("보드게임과 카드게임으로 즐거운 시간을 보내요. 초보자도 환영합니다!")
                 .maximum(8)
@@ -126,7 +126,7 @@ public class DataInitializer implements CommandLineRunner {
 
         Meet meet3 = Meet.builder()
                 .name("홍대 차 모임")
-                .email("parkmiyoung@temp.com")
+             //   .email("parkmiyoung@temp.com")
                 .dateTime(LocalDateTime.of(2025, 8, 15, 15, 30))
                 .detail("다양한 차를 마시며 독서와 담소를 나누는 여유로운 모임입니다.")
                 .maximum(6)

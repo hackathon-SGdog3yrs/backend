@@ -21,24 +21,26 @@ public class Meet {
     @Column(name = "id_m", nullable = false)
     private int id;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String email;
+    @Column(name = "intro")
+    private String intro;
+
+    @Column(name = "datetime", nullable = false)
     private LocalDateTime dateTime;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "detail", columnDefinition = "TEXT")
     private String detail;
 
-    @Column(nullable = false)
+    @Column(name = "maximum", nullable = false)
     private int maximum;
 
-    @Column(nullable = false)
+    @Column(name = "current", nullable = false)
     @Builder.Default
     private int current = 1;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "tag", columnDefinition = "TEXT")
     private String tag;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -49,4 +51,8 @@ public class Meet {
     @JoinColumn(name = "id_lo", nullable = false)
     private Location meetLocation;
 
+    // 현재 참여자 수 설정
+    public void setCurrent(int current) {
+        this.current = current;
+    }
 }

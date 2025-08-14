@@ -1,8 +1,12 @@
 package likelion13th.hackathon3rd.domain;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,17 +22,17 @@ public class User {
     @Column(name = "id_u", unique = true, nullable = false)
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "gender", nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Column(nullable = false)
+    @Column(name = "age", nullable = false)
     private Integer age;
 
-    @Column(columnDefinition = "json")
+    @Column(name = "keyword", columnDefinition = "TEXT")
     private String keyword;
 
     @OneToMany(mappedBy = "hostUser", fetch = FetchType.LAZY)
@@ -44,6 +48,29 @@ public class User {
 
     public enum Gender {
         M, F
+    }
+
+    // 특정 모임에 참여했는지 확인
+    public boolean hasJoinedMeet(Meet meet) {
+        return joinedMeets != null && joinedMeets.contains(meet);
+    }
+
+    // 모임 참여 추가
+    public void joinMeet(Meet meet) {
+        if (joinedMeets == null) {
+            joinedMeets = new ArrayList<>();
+        }
+        if (!hasJoinedMeet(meet)) {
+            joinedMeets.add(meet);
+        }
+    }
+
+    // 모임 나가기
+    public boolean leaveMeet(Meet meet) {
+        if (joinedMeets != null && hasJoinedMeet(meet)) {
+            return joinedMeets.remove(meet);
+        }
+        return false;
     }
 
     public void updateKeywordJson(String json) {

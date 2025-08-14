@@ -39,4 +39,6 @@ out/
 # macOS Finder settings
 .DS_Store
 
-.env.env
+
+.env
+.env

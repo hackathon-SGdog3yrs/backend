@@ -4,8 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import likelion13th.hackathon3rd.domain.Meet;
 import likelion13th.hackathon3rd.domain.User;
-import likelion13th.hackathon3rd.dto.MeetCreatedItemResponse;
-import likelion13th.hackathon3rd.dto.MeetJoinedItemResponse;
+import likelion13th.hackathon3rd.dto.MeetListResponse;
 import likelion13th.hackathon3rd.repository.MeetRepository;
 import likelion13th.hackathon3rd.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +21,7 @@ public class MeetQueryService {
     private final UserRepository userRepository;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public List<MeetCreatedItemResponse> getCreatedList(Integer userId, String sortBy, String order) {
-
+    public List<MeetListResponse> getCreatedList(Integer userId, String sortBy, String order) {
         String sortProperty = switch (sortBy == null ? "dateTime" : sortBy) {
             case "name", "maximum", "current", "dateTime" -> sortBy;
             default -> "dateTime";
@@ -35,28 +33,16 @@ public class MeetQueryService {
         List<Meet> meets = meetRepository.findByHostUser_Id(userId, sort);
 
         return meets.stream()
-                .map(m -> MeetCreatedItemResponse.builder()
-                        .id(m.getId())
-                        .name(m.getName())
-                        .dateTime(m.getDateTime()) // 필드명 dateTime
-                        .current(m.getCurrent())
-                        .maximum(m.getMaximum())
-                        .locationName(m.getMeetLocation() != null ? m.getMeetLocation().getName() : null)
-                        .locationPicture(m.getMeetLocation() != null ? m.getMeetLocation().getPicture() : null)
-                        .tag(parseTag(m.getTag()))
-                        .detail(m.getDetail())
-                        .build())
+                .map(this::toMeetListResponse)
                 .toList();
     }
 
-    public List<MeetJoinedItemResponse> getJoinedList(Integer userId, String sortBy, String order) {
+    public List<MeetListResponse> getJoinedList(Integer userId, String sortBy, String order) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NoSuchElementException("사용자를 찾을 수 없습니다."));
 
-        List<Meet> joined = new ArrayList<>(Optional.ofNullable(user.getJoinedMeets())
-                .orElseGet(List::of));
+        List<Meet> joined = new ArrayList<>(Optional.ofNullable(user.getJoinedMeets()).orElseGet(List::of));
 
-        // 정렬 기준 처리 (기본 dateTime)
         String sortKey = switch (sortBy == null ? "dateTime" : sortBy) {
             case "name", "maximum", "current", "dateTime" -> sortBy;
             default -> "dateTime";
@@ -73,18 +59,7 @@ public class MeetQueryService {
         joined.sort(comp);
 
         return joined.stream()
-                .map(m -> MeetJoinedItemResponse.builder()
-                        .id(m.getId())
-                        .name(m.getName())
-                        .datetime(m.getDateTime())  // 엔티티는 dateTime, 응답은 datetime
-                        .current(m.getCurrent())
-                        .maximum(m.getMaximum())
-                        .locationName(m.getMeetLocation() != null ? m.getMeetLocation().getName() : null)
-                        .locationPicture(m.getMeetLocation() != null ? m.getMeetLocation().getPicture() : null)
-                        .tag(parseTag(m.getTag()))
-                        .detail(m.getDetail())
-                        .hostname(m.getHostUser() != null ? m.getHostUser().getName() : null)
-                        .build())
+                .map(this::toMeetListResponse)
                 .toList();
     }
 
@@ -95,5 +70,28 @@ public class MeetQueryService {
         } catch (Exception e) {
             return Collections.emptyList();
         }
+    }
+
+    private MeetListResponse toMeetListResponse(Meet m) {
+        return MeetListResponse.builder()
+                .id(m.getId())
+                .name(m.getName())
+                .datetime(m.getDateTime())
+                .current(m.getCurrent())
+                .maximum(m.getMaximum())
+                .hostName(m.getHostUser() != null ? m.getHostUser().getName() : null)
+                .hostAge(m.getHostUser() != null ? m.getHostUser().getAge() : null)
+                .hostGender(m.getHostUser() != null && m.getHostUser().getGender() != null
+                        ? m.getHostUser().getGender().name()
+                        : null)
+                .locationName(m.getMeetLocation() != null ? m.getMeetLocation().getName() : null)
+                .locationPicture(
+                        m.getMeetLocation() != null && m.getMeetLocation().getPicture() != null
+                                ? List.of(m.getMeetLocation().getPicture())
+                                : Collections.emptyList()
+                )                .tag(parseTag(m.getTag()))
+                .intro(m.getIntro())
+                .detail(m.getDetail())
+                .build();
     }
 }
