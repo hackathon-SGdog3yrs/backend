@@ -72,4 +72,7 @@ public class User {
                     }
                     return false;
                 }
-            }
+    public void updateKeywordJson(String json) {
+        this.keyword = json;
+    }
+}
