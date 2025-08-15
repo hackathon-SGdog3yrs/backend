@@ -1,6 +1,7 @@
 package likelion13th.hackathon3rd.repository;
 
 import likelion13th.hackathon3rd.domain.Meet;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -36,4 +37,7 @@ public interface MeetRepository extends JpaRepository<Meet, Integer> {
     // 모임 한줄소개로 검색 (대소문자 무시)
     @Query("SELECT m FROM Meet m WHERE LOWER(m.intro) LIKE LOWER(CONCAT('%', :intro, '%'))")
     List<Meet> findByIntroContainingIgnoreCase(@Param("intro") String intro);
+
+    // 사용자가 생성한 모임 조회 (정렬 가능)
+    List<Meet> findByHostUser_Id(Integer userId, Sort sort);
 }

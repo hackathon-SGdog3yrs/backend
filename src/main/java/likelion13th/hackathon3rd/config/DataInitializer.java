@@ -68,15 +68,15 @@ public class DataInitializer implements CommandLineRunner {
         // 장소 데이터 추가
         Location location1 = Location.builder()
                 .name("마포 실버공원")
-                .address("서울시 마포구 상수동")
+                .address("서울시 마포구 성산로 123")
                 .picture(convertTagsToJson(List.of("https://your-bucket.s3.amazonaws.com/location1_1.jpg", "https://your-bucket.s3.amazonaws.com/location1_2.jpg")))
-                .advertisement(false)
+                .advertisement(true)
                 .build();
 
         Location location2 = Location.builder()
-                .name("마포 실버센터")
-                .address("서울시 마포구 합정동")
-                .picture(convertTagsToJson(List.of("https://your-bucket.s3.amazonaws.com/location2_1.jpg")))
+                .name("망원 노인정")
+                .address("서울시 마포구 망원로 45")
+                .picture(convertTagsToJson(List.of("https://your-bucket.s3.amazonaws.com/location2_1.jpg", "https://your-bucket.s3.amazonaws.com/location2_2.jpg")))
                 .advertisement(false)
                 .build();
 
