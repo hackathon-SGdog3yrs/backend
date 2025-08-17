@@ -31,8 +31,10 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	runtimeOnly 'com.h2database:h2'
+	implementation "io.netty:netty-resolver-dns-native-macos:4.1.123.Final:osx-aarch_64"
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation "com.fasterxml.jackson.core:jackson-databind"
 	implementation 'com.theokanning.openai-gpt3-java:service:0.18.2'
-
 }
 
 tasks.named('test') {
