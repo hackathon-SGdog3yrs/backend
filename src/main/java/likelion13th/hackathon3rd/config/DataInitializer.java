@@ -148,7 +148,7 @@ public class DataInitializer implements CommandLineRunner {
     private String convertTagsToJson(List<String> tags) {
         try {
             if (tags == null || tags.isEmpty()) {
-                return "[]";
+              return "[]";
             }
             return objectMapper.writeValueAsString(tags);
         } catch (Exception e) {
