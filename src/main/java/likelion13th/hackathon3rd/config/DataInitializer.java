@@ -77,7 +77,7 @@ public class DataInitializer implements CommandLineRunner {
                 .name("망원 한강공원")
                 .address("서울 마포구 마포나루길 467")
                 .picture(convertTagsToJson(List.of("https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/1_a.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/1_b.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/1_c.PNG")))
-                .advertisement(true)
+                .advertisement(false)
                 .build();
 
         Location location2 = Location.builder()
@@ -105,7 +105,7 @@ public class DataInitializer implements CommandLineRunner {
                 .name("서울 월드컵경기장")
                 .address("서울 마포구 월드컵로 240")
                 .picture(convertTagsToJson(List.of("https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/5_a.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/5_b.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/5_c.PNG")))
-                .advertisement(true)
+                .advertisement(false)
                 .build();
 
         Location location6 = Location.builder()
@@ -133,7 +133,7 @@ public class DataInitializer implements CommandLineRunner {
                 .name("우이락 망원본점")
                 .address("서울 마포구 포은로8길 22")
                 .picture(convertTagsToJson(List.of("https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/9_a.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/9_b.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/9_c.PNG")))
-                .advertisement(true)
+                .advertisement(false)
                 .build();
 
         Location location10 = Location.builder()
@@ -147,21 +147,21 @@ public class DataInitializer implements CommandLineRunner {
                 .name("수저가")
                 .address("서울 마포구 광성로4길 10 1층")
                 .picture(convertTagsToJson(List.of("https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/11_a.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/11_b.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/11_c.PNG")))
-                .advertisement(true)
+                .advertisement(false)
                 .build();
 
         Location location12 = Location.builder()
                 .name("노고산 숯불갈비")
                 .address("서울 마포구 백범로 14 1층")
                 .picture(convertTagsToJson(List.of("https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/12_a.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/12_b.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/12_c.PNG")))
-                .advertisement(false)
+                .advertisement(true)
                 .build();
 
         Location location13 = Location.builder()
                 .name("홍원")
                 .address("서울 마포구 백범로 23 케이터틀 지하1층 E호")
                 .picture(convertTagsToJson(List.of("https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/13_a.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/13_b.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/13_c.PNG")))
-                .advertisement(true)
+                .advertisement(false)
                 .build();
 
         Location location14 = Location.builder()
@@ -182,21 +182,21 @@ public class DataInitializer implements CommandLineRunner {
                 .name("정든그릇")
                 .address("서울 마포구 독막로 239 1층 101호")
                 .picture(convertTagsToJson(List.of("https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/16_a.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/16_b.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/16_c.PNG")))
-                .advertisement(false)
+                .advertisement(true)
                 .build();
 
         Location location17 = Location.builder()
                 .name("마포리 1987")
                 .address("서울 마포구 독막로38길 3 1층")
                 .picture(convertTagsToJson(List.of("https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/17_a.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/17_b.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/17_c.PNG")))
-                .advertisement(true)
+                .advertisement(false)
                 .build();
 
         Location location18 = Location.builder()
                 .name("달쏘")
                 .address("서울 마포구 서강대길 40 마포자이2차아파트 상가동 104호")
                 .picture(convertTagsToJson(List.of("https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/18_a.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/18_b.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/18_c.PNG")))
-                .advertisement(false)
+                .advertisement(true)
                 .build();
 
         Location location19 = Location.builder()
@@ -210,14 +210,14 @@ public class DataInitializer implements CommandLineRunner {
                 .name("홉커피")
                 .address("서울 마포구 백범로16길 8-5 1층")
                 .picture(convertTagsToJson(List.of("https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/20_a.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/20_b.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/20_c.PNG")))
-                .advertisement(false)
+                .advertisement(true)
                 .build();
 
         Location location21 = Location.builder()
                 .name("다인 찻집")
                 .address("서울 마포구 신촌로 182 2층")
                 .picture(convertTagsToJson(List.of("https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/21_a.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/21_b.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/21_c.PNG")))
-                .advertisement(true)
+                .advertisement(false)
                 .build();
 
         Location location22 = Location.builder()
@@ -231,21 +231,21 @@ public class DataInitializer implements CommandLineRunner {
                 .name("경의선공원")
                 .address("서울 마포구 대흥동 325-82")
                 .picture(convertTagsToJson(List.of("https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/23_a.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/23_b.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/23_c.PNG")))
-                .advertisement(true)
+                .advertisement(false)
                 .build();
 
         Location location24 = Location.builder()
                 .name("카페청록 샵01787C")
                 .address("서울 마포구 대흥로 110 1층")
                 .picture(convertTagsToJson(List.of("https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/24_a.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/24_b.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/24_c.PNG")))
-                .advertisement(false)
+                .advertisement(true)
                 .build();
 
         Location location25 = Location.builder()
                 .name("나이스워크투데이")
                 .address("서울 마포구 백범로10길 26 2층")
                 .picture(convertTagsToJson(List.of("https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/25_a.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/25_b.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/25_c.PNG")))
-                .advertisement(true)
+                .advertisement(false)
                 .build();
 
         Location location26 = Location.builder()
@@ -273,14 +273,14 @@ public class DataInitializer implements CommandLineRunner {
                 .name("나비카페")
                 .address("서울 마포구 고산2길 6 1층")
                 .picture(convertTagsToJson(List.of("https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/29_a.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/29_b.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/29_c.PNG")))
-                .advertisement(true)
+                .advertisement(false)
                 .build();
 
         Location location30 = Location.builder()
                 .name("자무쉬")
                 .address("서울 마포구 백범로 40-2 1층")
                 .picture(convertTagsToJson(List.of("https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/30_a.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/30_b.PNG", "https://raw.githubusercontent.com/hackathon-SGdog3yrs/backend/main/src/main/resources/images/30_c.PNG")))
-                .advertisement(false)
+                .advertisement(true)
                 .build();
 
         locationRepository.save(location1);
