@@ -35,35 +35,35 @@ public class DataInitializer implements CommandLineRunner {
                 .name("대흥동 호랑이")
                 .gender(User.Gender.F)
                 .age(65)
-                .keyword("[\"산책\",\"건강\",\"야외\"]")
+                .keyword("[]")
                 .build();
         
         User user2 = User.builder()
                 .name("장미같은오후")
                 .gender(User.Gender.M)
                 .age(63)
-                .keyword("[\"게임\",\"실내\",\"친목\"]")
+                .keyword("[]")
                 .build();
 
         User user3 = User.builder()
                 .name("도덕경풍")
                 .gender(User.Gender.F)
                 .age(52)
-                .keyword("[\"요리\",\"독서\",\"차\"]")
+                .keyword("[]")
                 .build();
 
         User user4 = User.builder()
                 .name("장기도사")
                 .gender(User.Gender.M)
                 .age(66)
-                .keyword("[\"산책\",\"야외\",\"건강\"]")
+                .keyword("[]")
                 .build();
 
         User user5 = User.builder()
                 .name("황혼빛여정")
                 .gender(User.Gender.M)
                 .age(70)
-                .keyword("[\"독서\",\"문화\",\"여행\"]")
+                .keyword("[]")
                 .build();
 
         userRepository.save(user1);
