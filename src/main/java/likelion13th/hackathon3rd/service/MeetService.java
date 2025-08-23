@@ -217,8 +217,11 @@ public class MeetService {
             case "intro":
                 searchResults = meetRepository.findByIntroContainingIgnoreCase(query);
                 break;
+            case "all":
+                searchResults = meetRepository.findByAllFieldsContainingIgnoreCase(query);
+                break;
             default:
-                throw new InvalidRequestException("지원하지 않는 검색 필드입니다. (name, detail, tag, intro 중 선택)");
+                throw new InvalidRequestException("지원하지 않는 검색 필드입니다. (name, detail, tag, intro, all 중 선택)");
         }
         
         return searchResults.stream()

@@ -40,4 +40,12 @@ public interface MeetRepository extends JpaRepository<Meet, Integer> {
 
     // 사용자가 생성한 모임 조회 (정렬 가능)
     List<Meet> findByHostUser_Id(Integer userId, Sort sort);
+    
+    // 전체 검색 (제목, 본문, 태그, 한줄소개에서 검색)
+    @Query("SELECT m FROM Meet m WHERE " +
+           "LOWER(m.name) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+           "LOWER(m.detail) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+           "LOWER(m.tag) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+           "LOWER(m.intro) LIKE LOWER(CONCAT('%', :query, '%'))")
+    List<Meet> findByAllFieldsContainingIgnoreCase(@Param("query") String query);
 }
