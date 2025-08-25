@@ -35,7 +35,7 @@ public class OpenAIController {
         List<String> keywords = userService.getUserKeywords(userId);
         if (keywords.isEmpty()) {
             return ResponseEntity.badRequest().body(Map.of(
-                    "message", "사용자에게 저장된 키워드가 없습니다. 챗봇과 대화를 먼저 진행해주세요."
+                    "message", "추천모임을 불러오지 못했어요. 챗봇과 대화를 먼저 진행해주세요."
             ));
         }
 
