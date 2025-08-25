@@ -511,8 +511,6 @@ public class DataInitializer implements CommandLineRunner {
         meetRepository.save(meet14);
         meetRepository.save(meet15);
 
-        user1.joinMeet(meet2);
-        userRepository.save(user1);
 
         System.out.println("테스트 데이터 초기화 완료");
         System.out.println("사용자 5명, 장소 30곳, 모임 15개가 추가되었습니다.");
